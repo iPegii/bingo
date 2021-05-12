@@ -7,7 +7,7 @@ const Alerts = ({alert}) => {
         <div>
         {alert !== undefined && alert.player.length > 0 
             ?(
-            <Alert variant="success" style={{position: "fixed", width: "100%", zIndex: "100"}}>
+            <Alert variant="success" style={{position: "fixed",marginLeft: "calc(-45vw + 50%)", width: "35%", zIndex: "100"}}>
             <Alert.Heading>{alert.player}</Alert.Heading>
             <p>{alert.message}</p>
             </Alert>

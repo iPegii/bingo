@@ -3,7 +3,6 @@ import Table from 'react-bootstrap/Table'
 
 
 const DisplayTable = ({players}) => {
-    console.log(players)
     return(
       <div style={{backgroundColor: "#99d1b1"}}>
       <Table style={{tableLayout: "fixed", width:"17em"}}>

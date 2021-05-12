@@ -1,5 +1,3 @@
-import React from 'react'
-
 const SpeechComponent = (text) => {
     console.log(text)
     let speech = new SpeechSynthesisUtterance();

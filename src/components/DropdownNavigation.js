@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 const DropdownNavigation = ({players, handleDelete}) => {
 return(
 <div>
-<Dropdown style={{textAlign: "left"}}>
+<Dropdown style={{textAlign: "left", marginLeft: "1em", marginTop: "-1em", position: "fixed", zIndex: "99"}}>
   <Dropdown.Toggle variant="secondary" id="dropdown-basic">
     Lista
   </Dropdown.Toggle>

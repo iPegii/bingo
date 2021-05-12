@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState, useEffect} from "react"
 import Alerts from './components/Alerts'
 import Button from 'react-bootstrap/Button'
-import sadFace from "./images/sad-face2.webp"
+import sadFace from "./images/face.png"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { v4 as uuidv4 } from 'uuid'
 import axios from "axios"
@@ -25,9 +25,12 @@ const App = () => {
       setPlayers(response.data)
 })
 
-const promiseGame = axios.get('http://localhost:3001/game')
-    promise.then(response => {
-      setGame(response.data)
+axios.get('http://localhost:3001/game')
+  .then(gameResponse => {
+      console.log(gameResponse)
+      if(gameResponse.data[0] !== undefined){
+      setGame(gameResponse.data[0].game)
+      }
 })
     console.log(players)
   },[])
@@ -131,16 +134,30 @@ const promiseGame = axios.get('http://localhost:3001/game')
     promise.then(response => {
       setPlayers(response.data)
 
-    axios.post('http://localhost:3001/game', game+1)
-      .then(response => {
-      setGame(response.data)
-      
-      /*const specialAlert = SpecialAlert(response.data)
+      const gameObject = {
+        id: 1,
+        game: (game+1)
+      }
+      if(gameObject.game === 1) {
+        axios.post('http://localhost:3001/game', gameObject)
+          .then(response => {
+            console.log(response)
+          setGame(response.data.game)
+          })
+        
+        } else {
+          axios.put('http://localhost:3001/game/1', gameObject)
+          .then(response => {
+            console.log(response)
+          setGame(response.data.game)
+          /*const specialAlert = SpecialAlert(response.data)
       setAlert(specialAlert)
       setTimeout(() => {
       setAlert()
       },5000)*/
-    })
+        })}
+        
+      
 })
     })
     console.log(winningPlayer)
@@ -180,15 +197,18 @@ const promiseGame = axios.get('http://localhost:3001/game')
       ? <DropdownNavigation players={players} handleDelete={handleDelete}></DropdownNavigation>
       : null
       }
-      <div style={{marginTop: "0em",width:"20%", marginLeft: "auto", marginRight: "auto"}}> 
+      <div style={{marginTop: "2em",width:"20%", marginLeft: "auto", marginRight: "auto", position: "relative"}}> 
       <form onSubmit={handleSubmit}>
       <div className="input-group input-group-md">
         <span className="input-group-text" id="inputGroup-sizing-md">Pelaaja</span>
         <input type="text" className="form-control" id="textInput" value={nameField} onChange={handleChange}></input>
       </div>
       <div style={{}}>
-      <Button style={{ height: "4em", fontSize: "20px",width: "100%", marginTop: "0.1em"}} 
+      <div style={{flexDirection: "row", display: "flex", width:"40vw"}}>
+      <Button style={{ height: "4em", fontSize: "20px",width: "50%", marginTop: "0.1em"}} 
       type="submit" variant="primary"><strong>Uusi pelaaja bingoon</strong></Button>
+      <p style={{marginLeft: "2em", fontSize: "40px"}}>Kierroksia: {game}</p>
+      </div>
       <Button style={{marginLeft: "calc(-45vw + 50%)", marginRight:"0em", height: "4em", fontSize: "20px",width: "90vw", marginTop: "0.1em"}} 
       type="submit" variant="success" onClick={handleWinner}><strong>Arvotaan voittaja</strong></Button>
       </div>
