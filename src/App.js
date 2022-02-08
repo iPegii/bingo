@@ -102,10 +102,10 @@ const App = () => {
 
   const handleWinner = (props) => {
     const winningNumber = Math.floor(
-      Math.random() * (players.length - 1 + 1) + 1,
+      Math.random() * (players.length - 1 + 1) + 1
     )
     var winningPlayer = players.find(
-      (player) => player.number === winningNumber,
+      (player) => player.number === winningNumber
     )
     if (winningPlayer === undefined) {
       const alert = {
@@ -159,14 +159,13 @@ const App = () => {
         })
       })
     SpeechComponent(`Congratulations ${winningPlayer.name}`)
-    console.log('winner: ', winningPlayer, ", gameNumber: ", game)
+    console.log("winner: ", winningPlayer, ", gameNumber: ", game)
     const winningAlert = WinningAlert(winningPlayer)
     setAlert(winningAlert)
-    
+
     setTimeout(() => {
       setAlert()
     }, 3000)
-    
   }
 
   const handleDelete = (e) => {
@@ -197,7 +196,6 @@ const App = () => {
         ></DropdownNavigation>
       ) : null}
       <div
-      
         style={{
           marginTop: "2em",
           width: "20%",
